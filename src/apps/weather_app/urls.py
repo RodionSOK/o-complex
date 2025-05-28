@@ -9,6 +9,6 @@ urlpatterns = [
     
     # API endpoints
     path("api/weather/", views.weather_data, name="weather_data"),
-    path("api/history/", views.search_history, name="search_history"),
-    path("api/autocomplete/", views.city_autocomplete, name="autocomplete"),
+    # path("api/history/", views.search_history, name="search_history"),
+    # path("api/autocomplete/", views.city_autocomplete, name="autocomplete"),
 ]

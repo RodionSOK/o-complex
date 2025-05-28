@@ -17,6 +17,7 @@ from pathlib import Path
 BASE_DIR = Path(__file__).resolve().parent.parent
 sys.path.append(str(BASE_DIR / "config"))  
 sys.path.append(str(BASE_DIR / "apps"))
+sys.path.insert(0, str(BASE_DIR.parent / 'src'))
 
 
 # Quick-start development settings - unsuitable for production
@@ -40,8 +41,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'src.apps.weather.apps.WeatherConfig',
-    'src.apps.weather.models.CitySearch',
+    'src.apps.weather_app.apps.WeatherConfig',
 ]
 
 MIDDLEWARE = [
@@ -81,8 +81,12 @@ WSGI_APPLICATION = 'config.mysite.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'postgres',
+        'USER': 'postgres',
+        'PASSWORD': 'postgres',
+        'HOST': 'db',
+        'PORT': 5432,
     }
 }
 

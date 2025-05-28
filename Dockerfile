@@ -1,12 +1,20 @@
-FROM python:3.13-slim
+FROM python:3.12-slim
 
-ENV PYTHONPATH="${PYTHONPATH}:/app:/app/src/apps:/app/src/apps/weather/services"
+RUN apt-get update && apt-get install -y --no-install-recommends \
+    libpq-dev \
+    gcc \
+    libc-dev \
+    make \
+    && rm -rf /var/lib/apt/lists/*
 
 WORKDIR /app
-COPY pyproject.toml poetry.lock ./
 
-RUN pip install --upgrade pip && pip install poetry gunicorn && poetry config virtualenvs.create false && poetry install --no-root
+COPY requirements.txt .
 
-COPY ./src/apps/weather/templates/ ./app/src/apps/weather/templates/
+RUN pip install --upgrade pip && \
+    pip install --no-cache-dir -r requirements.txt
+    
+COPY . .
 
-CMD ["gunicorn", "config.mysite.wsgi:application", "--bind", "0.0.0.0:8000"]
+ENV PYTHONPATH=/app
+ENV DJANGO_SETTINGS_MODULE=config.mysite.settings
