@@ -48,14 +48,8 @@
 
 1. **Клонирование репозитория**:
    ```bash
-   git clone https://github.com/your-username/weather-app.git
+   git clone https://github.com/rodionsok/o-complex.git
    cd weather-app
-   ```
-
-2. **Создание .env файла**:
-   ```bash
-   cp .env.example .env
-   # Отредактируйте .env при необходимости
    ```
 
 3. **Запуск с помощью Docker**:
