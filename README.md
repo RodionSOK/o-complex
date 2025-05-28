@@ -49,7 +49,7 @@
 1. **Клонирование репозитория**:
    ```bash
    git clone https://github.com/rodionsok/o-complex.git
-   cd weather-app
+   cd o-complex
    ```
 
 3. **Запуск с помощью Docker**:
