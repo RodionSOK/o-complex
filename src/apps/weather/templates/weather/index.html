@@ -1,0 +1,79 @@
+{% extends 'weather/base.html' %}
+{% load static %}
+
+{% block content %}
+<div class="container mt-4">
+
+    <div class="row mb-4">
+        <div class="col-md-6">
+            <form method="GET" action="{% url 'weather:weather_data' %}" class="d-flex">
+                <input 
+                    type="search" 
+                    class="form-control me-2" 
+                    placeholder="Введите город (например, Moscow)" 
+                    name="city"
+                    value="{{ city|default:'' }}"  
+                >
+                <button class="btn btn-primary" type="submit">
+                    <i class="bi bi-search"></i> Поиск
+                </button>
+            </form>
+        </div>
+    </div>
+
+
+    <div class="row g-4">
+    
+        <div class="col-md-4">
+            <div class="card weather-card shadow-lg">
+                <div class="card-body">
+                    <h2 class="card-title">{{ city|default:"Город не выбран" }}</h2>  
+                    {% if current_temp %} 
+                    <div class="display-4 mb-3">{{ current_temp }}°C</div>
+                    <div class="d-flex justify-content-between">
+                        <div>
+                            <p class="mb-0">Широта: {{ latitude|floatformat:2 }}</p>  
+                            <p class="mb-0">Долгота: {{ longitude|floatformat:2 }}</p>
+                        </div>
+                        <i class="bi bi-geo-alt fs-1"></i>
+                    </div>
+                    {% else %}
+                    <p class="text-muted">Введите город для получения данных</p>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-8">
+            <div class="card shadow">
+                <div class="card-body">
+                    <h5 class="card-title mb-4">
+                        <i class="bi bi-clock-history"></i> Почасовой прогноз
+                    </h5>
+                    {% if hourly %} 
+                    <div class="timeline">
+                        {% for hour in hourly %}
+                        <div class="timeline-item {% if forloop.first %}active{% endif %}">
+                            <div class="timeline-time">{{ hour.time|time:"H:i" }}</div>
+                            <div class="timeline-content">
+                                <span class="temperature">{{ hour.temperature }}°C</span>
+                                <div class="trend">
+                                    {% if hour.trend == 'up' %}
+                                        <i class="bi bi-arrow-up-circle text-success"></i>
+                                    {% else %}
+                                        <i class="bi bi-arrow-down-circle text-danger"></i>
+                                    {% endif %}
+                                </div>
+                            </div>
+                        </div>
+                        {% endfor %}
+                    </div>
+                    {% else %}
+                    <p class="text-muted">Нет данных для отображения</p>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
