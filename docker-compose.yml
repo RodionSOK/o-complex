@@ -1,28 +1,36 @@
 version: '3.9'
 
-services:  
+services:
   web:
-    build: .
-    command: python config/mysite/manage.py runserver 0.0.0.0:8000
+    build: 
+      context: .
+      dockerfile: Dockerfile
+    command: python manage.py runserver 0.0.0.0:8000
     volumes:
       - .:/app
     ports:
       - "8000:8000"
+      - "5678:5678"  
     depends_on:
       - db
+    env_file:
+      - .env  
     environment:
-      - DATABASE_URL=postgres://postgres:postgres@db:5432/postgres
-      - PYTHONPATH=/app
+      - PYTHONPATH=/app/src 
       - DJANGO_SETTINGS_MODULE=config.mysite.settings
+      - DB_HOST=db
+    restart: unless-stopped
 
   db:
     image: postgres:15
     volumes:
       - postgres_data:/var/lib/postgresql/data/
+    env_file:
+      - .env  
     environment:
-      - POSTGRES_DB=postgres
-      - POSTGRES_USER=postgres
-      - POSTGRES_PASSWORD=postgres
+      - POSTGRES_DB=${DB_NAME}
+      - POSTGRES_USER=${DB_USER}
+      - POSTGRES_PASSWORD=${DB_PASSWORD}
 
 volumes:
   postgres_data:

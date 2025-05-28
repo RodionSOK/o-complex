@@ -1,0 +1,49 @@
+{% extends "weather_app/base.html" %}
+{% load static %}
+
+{% block extra_css %}
+    <link rel="stylesheet" href="{% static 'weather_app/css/weather.css' %}">
+{% endblock %}
+
+{% block content %}
+<div class="weather-container">
+    <h1>Погодный сервис</h1>
+    
+    <div class="search-box mb-3">
+        <input type="text" id="city-input" class="form-control" 
+               placeholder="Введите город (например, Moscow)">
+        <button id="search-btn" class="btn btn-primary mt-2">Поиск</button>
+    </div>
+    
+    <div id="no-data-message" class="text-center py-4">
+        <p class="fs-5">Город не выбран</p>
+        <p>Введите город для получения данных</p>
+    </div>
+    
+    <div id="weather-results" class="d-none">
+        <div class="card mb-3">
+            <div class="card-body">
+                <h2 id="city-name" class="card-title"></h2>
+                <div class="current-weather">
+                    Текущая температура: <span id="current-temp" class="fs-3 fw-bold"></span>
+                </div>
+            </div>
+        </div>
+        
+        <h3>Почасовой прогноз</h3>
+        <div id="hourly-forecast" class="row g-2"></div>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+    <script src="{% static 'weather_app/js/weather.js' %}"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            document.getElementById('weather-results').classList.add('d-none');
+            document.getElementById('no-data-message').classList.remove('d-none');
+            
+            document.getElementById('city-input').focus();
+        });
+    </script>
+{% endblock %}

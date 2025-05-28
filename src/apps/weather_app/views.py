@@ -1,11 +1,9 @@
-import requests  # noqa: F401
 from django.shortcuts import render
 from django.http import JsonResponse
 from .services.weather_service import get_weather
 
 def index(request):
-    # Простая главная страница без истории поиска
-    return render(request, "weather/index.html")
+    return render(request, "weather_app/index.html")
 
 def weather_data(request):
     city = request.GET.get('city')
@@ -27,12 +25,12 @@ def weather_data(request):
         times = raw_data["hourly"]["time"]
         
         for i in range(min(12, len(times))):
+            current_temp = temperatures[i]  
+            
             if i == 0:
                 trend = "same"
             else:
-                current_temp = temperatures[i]
                 prev_temp = temperatures[i-1]
-                
                 if current_temp > prev_temp:
                     trend = "up"
                 elif current_temp < prev_temp:
