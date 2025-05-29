@@ -60,7 +60,7 @@
 4. **Применение миграций**:
    ```bash
    docker-compose exec web python manage.py migrate
-   '''
+   ```
 
 5. **Запуск тестов (опционально)**:
    ```bash
