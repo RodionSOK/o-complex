@@ -33,10 +33,10 @@
 ## Технологический стек
 
 - **Бэкенд**: Python 3.12, Django 5.2, PostgreSQL
-- **Фронтенд**: Vanilla JavaScript, HTML5, CSS3 (Bootstrap)
-- **Инфраструктура**: Docker, Docker Compose, Nginx (для продакшена)
+- **Фронтенд**: JavaScript, HTML5, CSS3 (Bootstrap)
+- **Инфраструктура**: Docker, Docker Compose
 - **API**: Open-Meteo (геокодинг и прогноз погоды)
-- **Инструменты**: mypy (статическая проверка типов), pytest
+- **Инструменты**: mypy (статическая проверка типов)
 
 ## Как запустить проект
 
@@ -60,19 +60,14 @@
 4. **Применение миграций**:
    ```bash
    docker-compose exec web python manage.py migrate
-   ```
+   '''
 
-5. **Создание суперпользователя (опционально)**:
-   ```bash
-   docker-compose exec web python manage.py createsuperuser
-   ```
-
-6. **Запуск тестов (опционально)**:
+5. **Запуск тестов (опционально)**:
    ```bash
    docker-compose exec web python manage.py test
    ```
 
-7. **Доступ к приложению**:
+6. **Доступ к приложению**:
    Откройте в браузере: http://localhost:8000
 
 ### Локальный запуск (без Docker)
